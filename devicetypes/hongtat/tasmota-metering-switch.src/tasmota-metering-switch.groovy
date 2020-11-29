@@ -18,7 +18,12 @@
  *
  * Original device driver modified to work with Hubitat - PabloGux 
  *
- */
+ * 11/29/2020 - Modified by PabloGux to run with Hubitat Elevation 
+ *  - Added initialize capability
+ *  - Added decode() and encode() methods
+ *  - Updated initialize() to encode Tasmota rules URL parameters
+ *  - Updated parse() to decode message.header (HTTP response header)
+ */ 
 
 metadata {
     definition(name: "Tasmota Metering Switch", namespace: "hongtat", author: "HongTat Tan", ocfDeviceType: "oic.d.switch") {
