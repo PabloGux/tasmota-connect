@@ -98,6 +98,8 @@ def updated() {
 }
 
 def initialize() {
+    
+    log.debug  ("initialize()")    
     if (device.hub == null) {
         log.error "Hub is null, must set the hub in the device settings so we can get local hub IP and port"
         return
@@ -109,16 +111,60 @@ def initialize() {
     } catch (all) { }
 
     parent.callTasmota(this, "Status 5")
-    parent.callTasmota(this, "Backlog Rule1 ON Power#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER\":\"%value%\"}} ENDON ON Power1#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER1\":\"%value%\"}} ENDON ON Power2#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER2\":\"%value%\"}} ENDON ON Power3#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER3\":\"%value%\"}} ENDON ON Power4#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER4\":\"%value%\"}} ENDON;Rule1 1")
+    /*parent.callTasmota(this, "Backlog Rule1 ON Power#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER\":\"%value%\"}} ENDON ON Power1#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER1\":\"%value%\"}} ENDON ON Power2#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER2\":\"%value%\"}} ENDON ON Power3#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER3\":\"%value%\"}} ENDON ON Power4#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER4\":\"%value%\"}} ENDON;Rule1 1")
     parent.callTasmota(this, "Backlog Rule2 ON Power5#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER5\":\"%value%\"}} ENDON ON Power6#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER6\":\"%value%\"}} ENDON;Rule2 1")
-    parent.callTasmota(this, "Backlog Rule3 ON Tele-Energy#Power DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSNS\":{\"ENERGY\":{\"Power\":\"%value%\"}}} ENDON ON Tele-Energy#Total DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSNS\":{\"ENERGY\":{\"Total\":\"%value%\"}}} ENDON;Rule3 1;TelePeriod 60")
+    parent.callTasmota(this, "Backlog Rule3 ON Tele-Energy#Power DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSNS\":{\"ENERGY\":{\"Power\":\"%value%\"}}} ENDON ON Tele-Energy#Total DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSNS\":{\"ENERGY\":{\"Total\":\"%value%\"}}} ENDON;Rule3 1;TelePeriod 60")*/
+    
+    def pwr="/?json={\"StatusSTS\":{\"POWER\":\"%value%\"}}"
+    def pwr1= "/?json={\"StatusSTS\":{\"POWER1\":\"%value%\"}}"
+    def pwr2= "/?json={\"StatusSTS\":{\"POWER2\":\"%value%\"}}"
+    def pwr3= "/?json={\"StatusSTS\":{\"POWER3\":\"%value%\"}}"
+    def pwr4= "/?json={\"StatusSTS\":{\"POWER4\":\"%value%\"}}"
+    def pwr5= "/?json={\"StatusSTS\":{\"POWER5\":\"%value%\"}}"
+    def pwr6= "/?json={\"StatusSTS\":{\"POWER6\":\"%value%\"}}"
+    def ene = "/?json={\"StatusSNS\":{\"ENERGY\":{\"Power\":\"%value%\"}}}"
+    def tot = "/?json={\"StatusSNS\":{\"ENERGY\":{\"Total\":\"%value%\"}}}"
+    pwr=encode(pwr)
+    pwr1=encode(pwr1)
+    pwr2=encode(pwr2)
+    pwr3=encode(pwr3)
+    pwr4=encode(pwr4)
+    pwr5=encode(pwr5)
+    pwr6=encode(pwr6)
+    ene=encode(ene)
+    tot=encode(tot)
+    //parent.callTasmota(this, "Backlog Rule1 ON Power#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER\":\"%value%\"}} ENDON ON Power1#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER1\":\"%value%\"}} ENDON ON Power2#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER2\":\"%value%\"}} ENDON ON Power3#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER3\":\"%value%\"}} ENDON ON Power4#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSTS\":{\"POWER4\":\"%value%\"}} ENDON;Rule1 1")
+      parent.callTasmota(this, "Backlog Rule1 ON Power#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] " + pwr +                                    " ENDON ON Power1#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] " + pwr1 +                                    " ENDON ON Power2#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] " + pwr2 +                                    " ENDON ON Power3#state DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] " + pwr3 +                                    " ENDON; Rule1 1") 
+    //parent.callTasmota(this, "Backlog Rule3 ON Tele-Energy#Power DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSNS\":{\"ENERGY\":{\"Power\":\"%value%\"}}} ENDON ON Tele-Energy#Total DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] /?json={\"StatusSNS\":{\"ENERGY\":{\"Total\":\"%value%\"}}} ENDON;Rule3 1;TelePeriod 60")
+      parent.callTasmota(this, "Backlog Rule3 ON Tele-Energy#Power DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] " + ene +                                                 " ENDON ON Tele-Energy#Total DO WebSend ["+device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")+"] " + tot +                                                 " ENDON;Rule3 1;TelePeriod 60")
     refresh()
 }
+
+def encode(String message) {  
+    def s  = message
+    s = s.replace('?','X1').replace('=','X2').replace('{','X3').replace(':','X6').replace('\\',"").replace('"','X5').replace('}','X7')
+    return s
+ } 
+
+def decode(String message) {   
+    def s  = message
+    s = s.replace('X1','?').replace('X2','=').replace('X3','{').replace('X6',':').replace('X4',"\\").replace('X5','"').replace('X7','}')
+    return s
+ }
+
 
 def parse(String description) {
     def events = null
     def message = parseLanMessage(description)
-    def json = parent.getJson(message.header)
+    log.debug ("parse(): message=" + message)
+    log.debug ("parse(): message.header =" + message.header) 
+    def s =  message.header
+    log.debug ("escaped message=" + s)
+    s = decode(s)
+    log.debug ("parse(): clean message =" + s)
+    
+   
+    def json = parent.getJson(s)
     if (json != null) {
         events = parseEvents(200, json)
     }
