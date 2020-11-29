@@ -17,8 +17,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * 04/05/2020 - Modified by PabloGux to run with Hubitat Elevation 
- *
- */
+ *  - Added initialize capability
+ *  - Added decode() and encode() methods
+ *  - Updated initialize() to encode Tasmota rules URL parameters
+ *  - Updated parse() to decode message.header (HTTP response header)
+ */ 
 
 metadata {
     definition(name: "Tasmota Generic Switch", namespace: "hongtat", author: "HongTat Tan", ocfDeviceType: "oic.d.switch") {
