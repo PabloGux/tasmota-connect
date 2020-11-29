@@ -32,6 +32,7 @@ metadata {
         capability "Light"
         capability "Health Check"
         capability "Signal Strength"
+        capability "Initialize" 
 
         command "reset"
 
